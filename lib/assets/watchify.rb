@@ -1,7 +1,7 @@
-require "assets/watchify/version"
+require 'execjs/xtrn' if Gem.win_platform?
 
-module Assets
-  module Watchify
-    # Your code goes here...
-  end
+require_relative "watchify/version"
+
+module Assets::Watchify
+  Folder='w6y'
 end
