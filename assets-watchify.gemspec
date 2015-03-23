@@ -8,15 +8,21 @@ Gem::Specification.new do |spec|
   spec.version       = Assets::Watchify::VERSION
   spec.authors       = ["Stas Ukolov"]
   spec.email         = ["ukoloff@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.summary       = 'Fast serving Rails assets in development'
+  spec.description   = ''
+  spec.homepage      = "https://github.com/ukoloff/assets-watchify"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
+
+  spec.add_dependency  "railties"
+  spec.add_dependency  "execjs-xtrn"
+  spec.add_dependency 'source_map'
+  spec.add_dependency 'listen'
+  spec.add_dependency 'wdm' if Gem.win_platform?
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"

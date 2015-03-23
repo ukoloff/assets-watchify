@@ -1,29 +1,34 @@
 # Assets::Watchify
 
-TODO: Write a gem description
+Fast serving Rails assets in development.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'assets-watchify'
-
+```ruby
+gem 'assets-watchify', group: :development
+```
 And then execute:
 
-    $ bundle
-
+```sh
+$ bundle
+```
 Or install it yourself as:
 
-    $ gem install assets-watchify
-
+```sh
+$ gem install assets-watchify
+```
 ## Usage
 
-TODO: Write usage instructions here
+Create folder `public\assets\w6y` and start rails server.
 
-## Contributing
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+## See also
+
+  * [ExecJS::Xtrn](https://github.com/ukoloff/execjs-xtrn)
+
+## Credits
+
+  * [Ruby](https://www.ruby-lang.org/)
+  * [Ruby on Rails](http://rubyonrails.org/)
