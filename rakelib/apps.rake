@@ -19,6 +19,9 @@ namespace :apps do
         EOG
       File.write gemfile, gf*""
       system *%w(bundle install), chdir: app
+      system *%w(bundle exec rails g controller welcome index), chdir: app
+      File.unlink "#{app}/public/index.html" rescue nil
+      FileUtils.mkdir_p "#{app}/public/assets/w6y"
     end
   end
 
