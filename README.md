@@ -1,5 +1,8 @@
 # Assets::Watchify
 
+[![Gem Version](https://badge.fury.io/rb/assets-watchify.svg)](http://badge.fury.io/rb/assets-watchify)
+
+
 Fast serving Rails assets in development.
 
 ## Installation
