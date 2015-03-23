@@ -24,7 +24,7 @@ $ gem install assets-watchify
 ```
 ## Usage
 
-Create folder `public\assets\w6y` and start rails server.
+Create folder `public/assets/w6y` and start rails server.
 
 
 ## See also
