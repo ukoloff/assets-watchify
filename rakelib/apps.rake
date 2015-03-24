@@ -16,6 +16,7 @@ namespace :apps do
       system *%w(bundle exec rails new . --force --skip-bundle), chdir: app
       gf=File.read(gemfile).each_line.reject{|s|/tzinfo-data/.match s}+
         <<-EOG.each_line.map(&:lstrip)
+          gem 'byebug', group: :development
           gem 'assets-watchify', path: '../..'
           gem 'therubyracer' unless Gem.win_platform?
           gem 'tzinfo-data'      if #{'3'==ver ? 'false' : 'Gem.win_platform?'}
