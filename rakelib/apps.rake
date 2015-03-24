@@ -28,7 +28,7 @@ namespace :apps do
       FileUtils.mkdir_p "#{app}/public/assets/w6y"
       File.open "#{app}/config/initializers/w6y.rb", 'w' do |f|
         f.puts <<-EOF.each_line.map(&:strip)
-          Assets::Watchify.defaults! rescue nil
+          Assets::Watchify.preload rescue nil
         EOF
       end
       File.open "#{app}/config/routes.rb", 'w' do |f|

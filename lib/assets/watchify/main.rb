@@ -38,8 +38,8 @@ module Assets::Watchify
     t2 = Time.now
 
     unless File.exist? js = Root.join(z.digest_path)
-      File.delete Bundles[name], "#{Bundles[name]}.map" rescue nil if Bundles[name]
-      Bundles[name] = js
+      File.delete @bundles[name], "#{@bundles[name]}.map" rescue nil if @bundles[name]
+      @bundles[name] = js
       FileUtils.mkpath js.dirname
       jsf = File.open js, 'w+'
       map = SourceMap.new file: js.basename, source_root: '/assets', generated_output: jsf
@@ -55,7 +55,7 @@ module Assets::Watchify
   end
 
   def self.ping
-    Bundles.keys.each{|name| jstag name}
+    @bundles.keys.each{|name| jstag name}
   end
 
   def self.path? f

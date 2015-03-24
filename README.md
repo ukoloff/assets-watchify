@@ -70,17 +70,10 @@ Request it via Bundles constant, eg:
 
 ```ruby
 # config/initializers/watchify.rb
-Assets::Watchify::Bundles['application.js']=nil
-Assets::Watchify::Bundles['other.js']=nil
-```
-Precompiling `application.js` should be frequent, there exists
-`defaults!` method for it:
-
-```ruby
-# config/initializers/watchify.rb
-Assets::Watchify.defaults! rescue nil
+Assets::Watchify.preload 'application.js', 'my/other.js' rescue nil
 ```
 
+`preload` without arguments is `preload 'application.js'`.
 
 ## See also
 

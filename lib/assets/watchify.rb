@@ -12,9 +12,10 @@ class Rails::Application
 end
 
 module Assets::Watchify
-  Bundles={}
+  @bundles={}
 
-  def self.defaults!
-    Bundles['application.js']=nil
+  def self.preload *args
+    args=['application.js'] if args.empty?
+    args.flatten.compact.each{|js| @bundles[js]=nil}
   end
 end
