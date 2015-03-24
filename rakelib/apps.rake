@@ -2,7 +2,10 @@ namespace :apps do
   desc 'Install rails for testing'
   task :init do
     require 'fileutils'
+    FileUtils.mkdir_p "test"
+    html=File.open "test/index.html", 'a'
     %w(3 4).each do |ver|
+      html.puts "<li><a href='http://localhost:300#{ver}'>v#{ver}</a>"
       FileUtils.mkdir_p app="test/v#{ver}"
       next if File.exists? gemfile="#{app}/Gemfile"
       system *%w(bundle init), chdir: app
@@ -22,6 +25,13 @@ namespace :apps do
       system *%w(bundle exec rails g controller welcome index), chdir: app
       File.unlink "#{app}/public/index.html" rescue nil
       FileUtils.mkdir_p "#{app}/public/assets/w6y"
+      File.open "#{app}/config/routes.rb", 'w' do |f|
+        f.puts <<-EOF
+Rails.application.routes.draw do
+  root to: "welcome#index"
+end
+        EOF
+      end
     end
   end
 
