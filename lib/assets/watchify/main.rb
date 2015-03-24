@@ -54,4 +54,34 @@ module Assets::Watchify
     "<script src='/assets/#{Folder}/#{z.digest_path}'></script><!-- #{z.length}/#{z.to_a.length} -->"
   end
 
+  def self.ping
+    Bundles.keys.each{|name| jstag name}
+  end
+
+  def self.start!
+    clean
+    Rails.application.config.assets.debug = false # Let CSS to glue either
+
+    paths=Rails.application.config.assets.paths
+
+    Thread.new do
+      listener = Listen.to paths do |m,a,r|
+        m.each {|f| puts "~ #{f}"}
+        a.each {|f| puts "+ #{f}"}
+        r.each {|f| puts "- #{f}"}
+        ping
+      end
+      listener.start
+      puts "#{self} listening to changes in #{paths.count} folders..."
+      at_exit do
+        puts "#{self } stop listening to folders..."
+        listener.stop
+        clean
+      end
+      sleep 1
+      ping
+    end
+  end
+
+  start!
 end
