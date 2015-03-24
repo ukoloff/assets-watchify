@@ -13,4 +13,8 @@ end
 
 module Assets::Watchify
   Bundles={}
+
+  def self.defaults!
+    Bundles['application.js']=nil
+  end
 end
