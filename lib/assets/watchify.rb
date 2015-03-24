@@ -1,7 +1,12 @@
-require 'execjs/xtrn' if Gem.win_platform?
-
 require_relative "watchify/version"
 
-module Assets::Watchify
-  Folder='w6y'
+if Gem.win_platform?
+  require 'execjs/xtrn'
+  require 'openssl/win/root'
+end
+
+class Rails::Application
+  initializer :assets_watchify do
+    require_relative 'watchify/boot'
+  end
 end
