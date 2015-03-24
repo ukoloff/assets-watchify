@@ -66,7 +66,7 @@ server {
 ## Precompilation
 
 It's useful sometimes to compile large JavaScript on Rails server start.
-Request it via Bundles constant , eg:
+Request it via Bundles constant, eg:
 
 ```ruby
 # config/initializers/watchify.rb
