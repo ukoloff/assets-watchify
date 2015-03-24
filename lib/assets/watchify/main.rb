@@ -58,11 +58,23 @@ module Assets::Watchify
     Bundles.keys.each{|name| jstag name}
   end
 
+  def self.path? f
+    Pathname.new(f).realpath.ascend do |z|
+      return false if Pathname.glob(z+'*.gemspec').any?
+      return true if z.join('Gemfile').file?
+    end
+    true
+  end
+
+  def self.pathz
+    @paths||=Rails.application.config.assets.paths#.select{|f| path? f}
+  end
+
   def self.start!
     clean
     Rails.application.config.assets.debug = false # Let CSS to glue either
 
-    paths=Rails.application.config.assets.paths
+    paths=pathz
 
     Thread.new do
       listener = Listen.to paths do |m,a,r|
