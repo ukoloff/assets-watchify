@@ -4,6 +4,9 @@
 
 Fast serving Rails assets in development.
 
+Useful for Rails applications with hundreds of JavaScript files
+(eg Backbone Marionette at client side).
+
 This Gem doesn't use Watchify, Browserify or Node.js.
 Rails Assets Pipeline is smart enough to do all the job.
 We just set a couple of hooks.
@@ -60,6 +63,24 @@ server {
 }
 
 ```
+## Precompilation
+
+It's useful sometimes to compile large JavaScript on Rails server start.
+Request it via Bundles constant , eg:
+
+```ruby
+# config/initializers/watchify.rb
+Assets::Watchify::Bundles['application.js']=nil
+Assets::Watchify::Bundles['other.js']=nil
+```
+Precompiling `application.js` should be frequent, there exists
+`defaults!` method for it:
+
+```ruby
+# config/initializers/watchify.rb
+Assets::Watchify.defaults! rescue nil
+```
+
 
 ## See also
 
@@ -73,3 +94,4 @@ server {
   * [nginx](http://nginx.org/)
   * Gem [source_map](https://github.com/ConradIrwin/ruby-source_map)
   * [Listen](https://github.com/guard/listen)
+  * [Backbone Marionette](http://marionettejs.com/)
