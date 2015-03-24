@@ -10,3 +10,7 @@ class Rails::Application
     require_relative 'watchify/boot'
   end
 end
+
+module Assets::Watchify
+  Bundles={}
+end
