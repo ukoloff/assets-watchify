@@ -26,6 +26,11 @@ namespace :apps do
       system *%w(bundle exec rails g controller welcome index), chdir: app
       File.unlink "#{app}/public/index.html" rescue nil
       FileUtils.mkdir_p "#{app}/public/assets/w6y"
+      File.open "#{app}/config/initializers/w6y.rb", 'w' do |f|
+        f.puts <<-EOF.each_line.map(&:strip)
+          Assets::Watchify::Bundles['application.js']=nil if defined? Assets::Watchify::Bundles
+        EOF
+      end
       File.open "#{app}/config/routes.rb", 'w' do |f|
         f.puts <<-EOF
 Rails.application.routes.draw do
