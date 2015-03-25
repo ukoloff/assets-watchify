@@ -8,17 +8,13 @@ module Assets::Watchify
   require_relative 'sprockets'
 
   def self.clean
-    Dir.glob Root.join '**', '*' do |f|
+    Dir.glob @root.join '**', '*' do |f|
       File.delete f rescue nil
     end
   end
 
-  def self.mkdir
-    FileUtils.mkpath Root
-  end
-
   def self.rmdir
-    FileUtils.remove_entry Root
+    FileUtils.remove_entry @root
   end
 
   def self.ms seconds
@@ -37,12 +33,12 @@ module Assets::Watchify
 
     t2 = Time.now
 
-    unless File.exist? js = Root.join(z.digest_path)
+    unless File.exist? js = @root.join(z.digest_path)
       File.delete @bundles[name], "#{@bundles[name]}.map" rescue nil if @bundles[name]
       @bundles[name] = js
       FileUtils.mkpath js.dirname
       jsf = File.open js, 'w+'
-      map = SourceMap.new file: js.basename, source_root: Prefix, generated_output: jsf
+      map = SourceMap.new file: js.basename, source_root: @prefix, generated_output: jsf
       z.to_a.each {|d| map.add_generated d.source, source: d.logical_path+'?body=1'}
       map.save "#{js}.map"
       jsf.puts
@@ -51,7 +47,7 @@ module Assets::Watchify
       t3 = Time.now
       puts "#{self} built '#{name}' (#{ms t2-t1}+#{ms t3-t2}=#{ms t3-t1})..."
     end
-    "<script src='#{Path}/#{z.digest_path}'></script><!-- #{z.length}/#{z.to_a.length} -->"
+    "<script src='#{@path}/#{z.digest_path}'></script><!-- #{z.length}/#{z.to_a.length} -->"
   end
 
   def self.ping
@@ -66,15 +62,11 @@ module Assets::Watchify
     true
   end
 
-  def self.pathz
-    @paths||=Rails.application.config.assets.paths#.select{|f| path? f}
-  end
-
   def self.start!
     clean
     Rails.application.config.assets.debug = false # Let CSS to glue either
 
-    paths=pathz
+    paths=Rails.application.config.assets.paths.select{|f| path? f}
 
     Thread.new do
       listener = Listen.to paths do |m,a,r|
@@ -94,6 +86,4 @@ module Assets::Watchify
       ping
     end
   end
-
-  start!
 end
