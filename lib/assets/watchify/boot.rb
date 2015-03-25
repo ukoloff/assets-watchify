@@ -3,7 +3,9 @@ require_relative "version"
 module Assets::Watchify
   Folder='w6y'
 
-  Root=Rails.root.join "public/assets", Folder
+  Prefix=Rails.application.config.assets.prefix
+  Path=Prefix+'/'+Folder
+  Root=Rails.root.join "public"+Path
 
   def self.use?
     defined?(Rails::Server) &&

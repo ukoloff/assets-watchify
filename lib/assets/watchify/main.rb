@@ -42,7 +42,7 @@ module Assets::Watchify
       @bundles[name] = js
       FileUtils.mkpath js.dirname
       jsf = File.open js, 'w+'
-      map = SourceMap.new file: js.basename, source_root: '/assets', generated_output: jsf
+      map = SourceMap.new file: js.basename, source_root: Prefix, generated_output: jsf
       z.to_a.each {|d| map.add_generated d.source, source: d.logical_path+'?body=1'}
       map.save "#{js}.map"
       jsf.puts
@@ -51,7 +51,7 @@ module Assets::Watchify
       t3 = Time.now
       puts "#{self} built '#{name}' (#{ms t2-t1}+#{ms t3-t2}=#{ms t3-t1})..."
     end
-    "<script src='/assets/#{Folder}/#{z.digest_path}'></script><!-- #{z.length}/#{z.to_a.length} -->"
+    "<script src='#{Path}/#{z.digest_path}'></script><!-- #{z.length}/#{z.to_a.length} -->"
   end
 
   def self.ping
