@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "railties"
   spec.add_dependency 'source_map'
   spec.add_dependency 'listen'
+  spec.add_dependency 'em-websocket'
   if Gem.win_platform?
     spec.add_dependency 'wdm'
     spec.add_dependency 'execjs-xtrn'
