@@ -56,6 +56,7 @@ module Assets::Watchify
 
   def self.path? f
     Pathname.new(f).realpath.ascend do |z|
+      return false if 'gems'==z.basename.to_s
       return false if Pathname.glob(z+'*.gemspec').any?
       return true if z.join('Gemfile').file?
     end
