@@ -21,11 +21,10 @@ Gem::Specification.new do |spec|
   spec.add_dependency "railties"
   spec.add_dependency 'source_map'
   spec.add_dependency 'listen'
-  if Gem.win_platform?
-    spec.add_dependency 'wdm'
-    spec.add_dependency 'execjs-xtrn'
-    spec.add_dependency 'openssl-win-root'
-  end
+  # Windows dependencies
+  spec.add_dependency 'wdm'
+  spec.add_dependency 'execjs-xtrn'
+  spec.add_dependency 'openssl-win-root'
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
