@@ -44,7 +44,7 @@ The Gem:
 
 For Rails v3 it's enough.
 
-Rails v4 is slooow serving large files (and combined JavaScript is large!).
+Rails v4 (if not using [puma](https://rubygems.org/gems/puma)) is slooow serving large files (and combined JavaScript is large!).
 Use nginx as reverse proxy:
 
 ```
@@ -63,6 +63,7 @@ server {
 }
 
 ```
+
 ## Precompilation
 
 It's useful sometimes to compile large JavaScript on Rails server start.
